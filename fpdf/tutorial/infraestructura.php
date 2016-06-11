@@ -32,8 +32,8 @@ while($articulos2 = mysql_fetch_array($articulos)){
 	$pdf->Cell(30, 8, '', 0);
 	
 	$pdf->Cell(32, 8,$articulos2['idinfra'], 1);
-	$pdf->Cell(25, 8, $articulos2['nombre'], 1);
-	$pdf->Cell(70, 8,$articulos2['ubicacion'], 1);
+	$pdf->Cell(25, 8,utf8_decode($articulos2['nombre']), 1);
+	$pdf->Cell(70, 8,utf8_decode($articulos2['ubicacion']), 1);
 	
 	$pdf->Ln(8);
 }

@@ -84,7 +84,7 @@ if (@!$_SESSION['user']) {
 		    	$apellido=$row[2];
 		    	$telefono=$row[3];
 		    	$empresa=$row[4];
-		    	$articulo=$row[5];
+		    	$email=$row[5];
 		    	
 		    }
 
@@ -98,7 +98,7 @@ if (@!$_SESSION['user']) {
 				Apellido<br> <input type="text" name="apellido" required value="<?php echo $apellido?>"><br>
 				Teléfono<br> <input type="text" name="telefono" required value="<?php echo $telefono?>"><br>
 				Empresa<br> <input type="text" name="empresa" required value="<?php echo $empresa?>"><br>
-				Articulo<br> <input type="text" name="articulo" required value="<?php echo $articulo?>"><br>
+				Articulo<br> <input type="text" name="email" required value="<?php echo $email?>"><br>
 				
 
 				

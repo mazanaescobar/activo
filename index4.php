@@ -65,6 +65,7 @@ include("include/menu.php");
       <a target="_blank" href="index5.php" class="btn btn-danger">Personas</a>
       <a target="_blank" href="index6.php" class="btn btn-danger">Proveedores</a>
       <a target="_blank" href="index7.php" class="btn btn-danger">Reasignación</a>
+      <a target="_blank" href="index8.php" class="btn btn-danger">Estado</a>
       
     </ul>
       </li>
@@ -117,7 +118,7 @@ include("include/menu.php");
 		<div class="well well-small">
 		<hr class="soft"/>
 		<h4>Tabla de bienes</h4> 
-
+		<div style="height: 500px;width: 925px; overflow-y: auto;">
 		<div class="row-fluid">
 		
 
@@ -184,6 +185,7 @@ include("include/menu.php");
 		
 		</div>	
 		</div>	
+		</div>
 		<br/>
 		
 

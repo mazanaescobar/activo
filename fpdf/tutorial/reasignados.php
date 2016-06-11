@@ -39,14 +39,14 @@ while($articulos2= mysql_fetch_array($articulos)){
 	$pdf->Cell(5, 8, '', 0);
 	
 	$pdf->Cell(7, 8,$articulos2['idreasignado'], 1);
-	$pdf->Cell(24, 8, $articulos2['nombre'], 1);
-	$pdf->Cell(20, 8,$articulos2['marca'], 1);
-	$pdf->Cell(30, 8,$articulos2['modelo'], 1);
-	$pdf->Cell(20, 8,$articulos2['infra'], 1);
+	$pdf->Cell(24, 8,utf8_decode($articulos2['nombre']), 1);
+	$pdf->Cell(20, 8,utf8_decode($articulos2['marca']), 1);
+	$pdf->Cell(30, 8,utf8_decode($articulos2['modelo']), 1);
+	$pdf->Cell(20, 8,utf8_decode($articulos2['infra']), 1);
 	$pdf->Cell(16, 8,$articulos2['correlativo'], 1);
-	$pdf->Cell(40, 8,$articulos2['antiguo'], 1);
-	$pdf->Cell(50, 8,$articulos2['asunto'], 1);
-	$pdf->Cell(40, 8,$articulos2['nuevo'], 1);
+	$pdf->Cell(40, 8,utf8_decode($articulos2['antiguo']), 1);
+	$pdf->Cell(50, 8,utf8_decode($articulos2['asunto']), 1);
+	$pdf->Cell(40, 8,utf8_decode($articulos2['nuevo']), 1);
 	$pdf->Cell(18, 8,$articulos2['fecha'], 1);	
 //$articulos3= mysql_query("SELECT * FROM reasignaciones2");
 //while($articulos1 = mysql_fetch_array($articulos3)){

@@ -17,12 +17,12 @@ $pdf->Cell(20,10,'lista de proveedores');
 $pdf->Ln(10);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(10, 8, '', 0);
-$pdf->Cell(25, 6, 'ID del proveedor', 1);
+$pdf->Cell(10, 6, 'ID', 1);
 $pdf->Cell(30, 6, 'nombre', 1);
 $pdf->Cell(30, 6, 'apellido', 1);
 $pdf->Cell(20, 6, 'telefono', 1);
 $pdf->Cell(40, 6, 'empresa', 1);
-$pdf->Cell(20, 6, 'ID del articulo', 1);
+$pdf->Cell(40, 6, 'email', 1);
 $pdf->Ln(6);
 $pdf->SetFont('Arial', '', 8);
 
@@ -33,12 +33,12 @@ while($articulos2 = mysql_fetch_array($articulos)){
 	
 	$pdf->Cell(10, 8, '', 0);
 	
-	$pdf->Cell(25, 8,$articulos2['idproveedores'], 1);
-	$pdf->Cell(30, 8, $articulos2['nombre'], 1);
-	$pdf->Cell(30, 8, $articulos2['apellido'], 1);
+	$pdf->Cell(10, 8,$articulos2['idproveedores'], 1);
+	$pdf->Cell(30, 8,utf8_decode($articulos2['nombre']), 1);
+	$pdf->Cell(30, 8,utf8_decode($articulos2['apellido']), 1);
 	$pdf->Cell(20, 8, $articulos2['telefono'], 1);
-	$pdf->Cell(40, 8, $articulos2['empresa'], 1);
-	$pdf->Cell(20, 8,$articulos2['articulo'], 1);
+	$pdf->Cell(40, 8,utf8_decode($articulos2['empresa']), 1);
+	$pdf->Cell(40, 8,utf8_decode($articulos2['email']), 1);
 		$pdf->Ln(8);
 }
 $pdf->SetFont('Arial', 'B', 8);

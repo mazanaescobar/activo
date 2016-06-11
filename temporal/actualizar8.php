@@ -8,7 +8,7 @@ if (@!$_SESSION['user']) {
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Proyecto activo fijo</title>
+    <title>Proyecto Activo fijo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Joseph Godoy">
@@ -40,7 +40,7 @@ if (@!$_SESSION['user']) {
 	<div class="container">
 	  <div class="nav-collapse">
 		<ul class="nav">
-			<li class=""><a href="index2.php">ADMINISTRADOR DE ARTICULO</a></li>
+			<li class=""><a href="index2.php">ADMINISTRADOR PERSONAS</a></li>
 			 
 	
 		</ul>
@@ -66,56 +66,50 @@ if (@!$_SESSION['user']) {
 		<div class="caption">
 		
 <!--///////////////////////////////////////////////////Empieza cuerpo del documento interno////////////////////////////////////////////-->
-		<h2> Administración de articulos</h2>	
+		<h2> Administración de proveedores</h2>	
 		<div class="well well-small">
 		<hr class="soft"/>
-		<h4>Edición editar articulos</h4>
+		<h4>Editar proveedores </h4>
 		<div class="row-fluid">
 		
 		<?php
 		extract($_GET);
 		require("connect_db.php");
 
-		$sql="SELECT * FROM articulos WHERE idarticulo=$idarticulo";
+		$sql="SELECT * FROM estado WHERE idestado=$idestado";
 		$ressql=mysql_query($sql);
 		while ($row=mysql_fetch_row ($ressql)){
-		    	$idarticulo=$row[0];
-		    	$infraestructura=$row[1];
-		    	$codigo_bien=$row[2];
-		    	$correlativo=$row[3];
-		    	$nombre=$row[4];
-		    	$marca=$row[5];
-		    	$modelo=$row[6];
-		    	$encargado=$row[7];
-		    	$precio=$row[8];
-		    	$proveedor=$row[9];
-		    	$fecha_compra=$row[10];
-		    	$estado=$row[11];
-		    	
+		    	$idestado=$row[0];
+		    	$articulo=$row[1];
+		    	$asunto=$row[2];
+		    	$fecha_in=$row[3];
+		    	$horas=$row[4];
+		    	$costo=$row[5];
+		    	$fecha_sal=$row[6];
+		    	$problema=$row[7];
+		    	$tecnico=$row[8];
 		    }
 
 
 
 		?>
 
-		<form action="ejecutaactualizar3.php" method="post">
-				Id<br><input type="text" name="idarticulo"   value= "<?php echo $idarticulo ?>" readonly="readonly"><br>
-				Infra<br> <input type="text" name="infraestructura"  required value="<?php echo $infraestructura?>"><br>
-				Bienes<br> <input type="text" name="codigo_bien" required value="<?php echo $codigo_bien?>"><br>
-				Correlativo<br> <input type="text" name="correlativo" required value="<?php echo $correlativo?>"><br>
-				Nombre<br> <input type="text" name="nombre"  required value="<?php echo $nombre?>"><br>
-				Marca<br> <input type="text" name="marca"  required value="<?php echo $marca?>"><br>
-				Modelo<br> <input type="text" name="modelo"  required value="<?php echo $modelo?>"><br>
-				Encargado<br> <input type="text" name="encargado" required value="<?php echo $encargado?>"><br>
-				Precio<br> <input type="number" name="precio" value="<?php echo $precio?>"><br>
-				Proveedor<br> <input type="text" name="proveedor" value="<?php echo $proveedor?>"><br>
-				Fecha de compra<br> <input type="date" required name="fecha_compra" value="<?php echo $fecha_compra?>"><br>
-				Estado<br> Bueno<input name="estado" type="radio" id="bueno" value="bueno"> Malo<input name="estado" type="radio" id="malo" value="malo"> Descartado<input name="estado" type="radio" id="descarte" value="Descarte"> <br>
+		<form action="ejecutaactualizar8.php" method="post">
+				Id<br><input type="text" name="idestado" value= "<?php echo $idestado ?>" readonly="readonly"><br>
+				Artículo<br> <input type="text" name="articulo" required value="<?php echo $articulo?>"><br>
+				Asunto<br> <input type="text" name="asunto" required value="<?php echo $asunto?>"><br>
+				Fecha de ingreso<br> <input type="date" name="fehca_in" required value="<?php echo $fecha_in?>"><br>
+				Horas <br> <input type="text" name="horas" required value="<?php echo $horas?>"><br>
+				costo<br> <input type="number" name="costo" required value="<?php echo $costo?>"><br>
+				Fehca de salida<br> <input type="date" name="fehca_sal" required value="<?php echo $fecha_sal?>"><br>
+				Problema<br> <input type="text" name="problema" required value="<?php echo $problema?>"><br>
+				Técnico<br> <input type="text" name="tecnico" required value="<?php echo $tecnico?>"><br>
+				
 
 				
 				
 				<br>
-				<input type="submit"  required value="Actulizar" class="btn btn-success btn-primary">
+				<input type="submit" required value="Actulizar" class="btn btn-success btn-primary">
 			</form>
 
 				  

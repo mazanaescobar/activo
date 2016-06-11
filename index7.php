@@ -64,14 +64,51 @@ include("include/menu.php");
       <a target="_blank" href="index5.php" class="btn btn-danger">Personas</a>
       <a target="_blank" href="index6.php" class="btn btn-danger">Proveedores</a>
       <a target="_blank" href="index7.php" class="btn btn-danger">Reasignación</a>
+      <a target="_blank" href="index8.php" class="btn btn-danger">Estado</a>
       
     </ul>
       </li>
     </ul>
   </div>
 </nav>
-<!-- ======================================================================================================================== -->
+<!-- generar busqueda de articulos ================================================== -->	
+<br>
 
+<?php
+			require("connect_db.php");
+			$consulta1='select idarticulo,nombre,marca,modelo,encargado from articulos';
+			$result1=mysql_query($consulta1);
+
+		?>
+
+
+		<select name="articulos" value="" style="width: 100px;">
+			<option>Articulos</option>
+			<?php
+			while($fila1=mysql_fetch_row($result1))
+
+				echo"<option value='".$fila1['0']."'>".$fila1['0'].'--'.$fila1['1'].'--'.$fila1['2'].'--'.$fila1['3'].'--'.$fila1['4']."</option>";
+				?>
+		</select>
+<!-- generar busqueda de personas ================================================== -->	
+  
+
+<?php
+			require("connect_db.php");
+			$consulta='select idpersonas,cargo,nombre,apellido from personas';
+			$result=mysql_query($consulta);
+
+		?>
+
+
+		<select name="personas" style="width: 100px;">
+			<option value="">Personas</option>
+			<?php
+			while($fila=mysql_fetch_row($result))
+
+				echo"<option value='".$fila['0']."'>".$fila['0'].'--'.$fila['1'].'--'.$fila['2'].'--'.$fila['3']."</option>";
+				?>
+		</select>
 
 
 <!-- formulario de articulos================================================== -->
@@ -95,7 +132,7 @@ include("include/menu.php");
     </div>
     <div class="form-group">
       <label style="font-size: 14pt"><b>Motivo de la reasignación</b></label>
-      <input type="text" name="asunto" class="form-control" required placeholder="Narangito.sa.de.sv" />
+      <input type="text" name="asunto" class="form-control" required placeholder="asunto" />
     </div>
      <div class="form-group">
       <label style="font-size: 14pt"><b>Fecha</b></label>
@@ -128,6 +165,7 @@ include("include/menu.php");
 		<div class="well well-small">
 		<hr class="soft"/>
 		<h4>Tabla de Reasignaciones</h4> 
+		<div style="height: 300px;width: 925px; overflow-y: auto;">
 
 		<div class="row-fluid">
 		
@@ -201,6 +239,7 @@ include("include/menu.php");
 		<div class="span8">
 		
 		</div>	
+		</div>
 		</div>	
 		<br/>
 		

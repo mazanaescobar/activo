@@ -67,22 +67,106 @@ include("include/menu.php");
       <a target="_blank" href="index5.php" class="btn btn-danger">Personas</a>
       <a target="_blank" href="index6.php" class="btn btn-danger">Proveedores</a>
       <a target="_blank" href="index7.php" class="btn btn-danger">Reasignación</a>
+      <a target="_blank" href="index8.php" class="btn btn-danger">Estado</a>
       
     </ul>
       </li>
     </ul>
   </div>
+ <!-- generar busqueda de personas ================================================== -->	
+  <br>
+
+<?php
+			require("connect_db.php");
+			$consulta='select idpersonas,cargo,nombre,apellido from personas';
+			$result=mysql_query($consulta);
+
+		?>
+
+
+		<select name="personas" style="width: 100px;">
+			<option value="">Personas</option>
+			<?php
+			while($fila=mysql_fetch_row($result))
+
+				echo"<option value='".$fila['0']."'>".$fila['0'].'--'.$fila['1'].'--'.$fila['2'].'--'.$fila['3']."</option>";
+				?>
+		</select>
+
+<!-- generar busqueda de infraestructuras ================================================== -->	
+
+
+<?php
+			require("connect_db.php");
+			$consulta1='select idinfra,nombre,ubicacion from infraestructuras';
+			$result1=mysql_query($consulta1);
+
+		?>
+
+
+		<select name="infraestructuras" style="width: 135px;">
+			<option value="">Infraestructuras</option>
+			<?php
+			while($fila1=mysql_fetch_row($result1))
+
+				echo"<option value='".$fila1['0']."'>".$fila1['0'].'--'.$fila1['1'].'--'.$fila1['2']."</option>";
+				?>
+		</select>
+
+<!-- generar busqueda de bienes ================================================== -->	
+
+
+<?php
+			require("connect_db.php");
+			$consulta2='select idbienes,nombre from bienes';
+			$result2=mysql_query($consulta2);
+
+		?>
+
+
+		<select name="bienes" style="width: 125px;">
+			<option value="">tipo de bienes</option>
+			<?php
+			while($fila2=mysql_fetch_row($result2))
+
+				echo"<option value='".$fila2['0']."'>".$fila2['0'].'--'.$fila2['1']."</option>";
+				?>
+		</select>
+
+
+<!-- generar busqueda de proveedores ================================================== -->	
+
+
+<?php
+			require("connect_db.php");
+			$consulta3='select idproveedores,nombre,apellido,empresa from proveedores';
+			$result3=mysql_query($consulta3);
+
+		?>
+
+
+		<select name="proveedores" style="width: 135px;">
+			<option value="">proveedores</option>
+			<?php
+			while($fila3=mysql_fetch_row($result3))
+
+				echo"<option value='".$fila3['0']."'>".$fila3['0'].'--'.$fila3['1'].'--'.$fila3['2'].'--'.$fila3['3']."</option>";
+				?>
+		</select>
+
 </nav>
 <!-- ======================================================================================================================== -->
 
-
-
+<table>
+	<tr>
+		<td>
 <!-- formulario de articulos================================================== -->
 <hr class="soften"/>
 <form method="post" action="" >
   <fieldset>
   
-    <legend  style="font-size: 40pt"><b>Reguistro de artículos</b></legend>
+    <legend  style="font-size: 40pt"><b>Reguistro de artículos</b> </legend>
+
 
     <div class="form-group">
       <label style="font-size: 14pt">codigo de infraestructura</label>
@@ -118,8 +202,16 @@ include("include/menu.php");
       name="precio" class="form-control" required placeholder="Precio" />
     </div>
     <div class="form-group">
+      <label style="font-size: 14pt"><b>ID Proveedor</b></label>
+      <input type="text" step="any" 
+      name="proveedor" class="form-control" required placeholder="ID" />
+    </div>
+    <div class="form-group">
       <label style="font-size: 14pt"><b>Fecha de compra</b></label>
       <input type="date" name="fecha" class="form-control" required placeholder="dd/mm/aa" />
+    </div><div class="form-group">
+      <label style="font-size: 14pt"><b>Estado</b></label>
+     Bueno<input name="estado" type="radio" id="bueno" value="bueno"> Malo<input name="estado" type="radio" id="malo" value="malo"> Descartado<input name="estado" type="radio" id="descarte" value="Descarte">
     </div>
       
    
@@ -135,7 +227,16 @@ include("include/menu.php");
 			require("registro2.php");
 		}
 	?>
+
+		</td>
+
+<!-- generar busqueda de personas ================================================== -->		
 		
+		
+
+		</td>
+	</tr>
+</table>
 
 <!-- registrar articulo ================================================== -->
 <hr class="soften"/><hr class="soften"/>
@@ -146,11 +247,9 @@ include("include/menu.php");
 		<div class="well well-small">
 		<hr class="soft"/>
 		<h4>Tabla de Artículos</h4> 
-
+		<div style="height: 500px;width: 925px; overflow-y: auto;">
 		<div class="row-fluid">
 		
-
-
 
 
 
@@ -171,7 +270,9 @@ include("include/menu.php");
 						echo "<td>Modelos</td>";
 						echo "<td>Encargados</td>";
 						echo "<td>precio</td>";
+						echo "<td>proveedor</td>";
 						echo "<td>Fechas</td>";
+						echo "<td>estado</td>";
 						echo "<td>Editar</td>";
 						echo "<td>Borrar</td>";
 					echo "</tr>";
@@ -192,6 +293,8 @@ include("include/menu.php");
 				    	echo "<td>$arreglo[7]</td>";
 				    	echo "<td>$arreglo[8]</td>";
 				    	echo "<td>$arreglo[9]</td>";
+				    	echo "<td>$arreglo[10]</td>";
+				    	echo "<td>$arreglo[11]</td>";
 				    	
 				    	
 
@@ -226,6 +329,7 @@ include("include/menu.php");
 		
 		</div>	
 		</div>	
+		</div>
 		<br/>
 		
 

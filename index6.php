@@ -64,6 +64,7 @@ include("include/menu.php");
       <a target="_blank" href="index5.php" class="btn btn-danger">Personas</a>
       <a target="_blank" href="index6.php" class="btn btn-danger">Proveedores</a>
       <a target="_blank" href="index7.php" class="btn btn-danger">Reasignación</a>
+      <a target="_blank" href="index8.php" class="btn btn-danger">Estado</a>
       
     </ul>
       </li>
@@ -98,8 +99,8 @@ include("include/menu.php");
       <input type="text" name="empresa" class="form-control" required placeholder="Narangito.sa.de.sv" />
     </div>
     <div class="form-group">
-      <label style="font-size: 14pt"><b>Articulo qué provee</b></label>
-      <input type="text" name="articulo" class="form-control" required placeholder="11" />
+      <label style="font-size: 14pt"><b>email</b></label>
+      <input type="text" name="email" class="form-control" required placeholder="correo@gmail.com" />
     </div>
     
       
@@ -128,6 +129,7 @@ include("include/menu.php");
 		<div class="well well-small">
 		<hr class="soft"/>
 		<h4>Tabla de Propveedores</h4> 
+		<div style="height: 500px;width: 925px; overflow-y: auto;">
 
 		<div class="row-fluid">
 		
@@ -149,7 +151,7 @@ include("include/menu.php");
 						echo "<td>Apellido</td>";
 						echo "<td>Teléfono</td>";
 						echo "<td>Empresa</td>";
-						echo "<td>Articulo</td>";			
+						echo "<td>email</td>";			
 						echo "<td>Editar</td>";
 						echo "<td>Borrar</td>";
 					echo "</tr>";
@@ -166,6 +168,7 @@ include("include/menu.php");
 				    	echo "<td>$arreglo[3]</td>";
 				    	echo "<td>$arreglo[4]</td>";
 				    	echo "<td>$arreglo[5]</td>";
+				    	
 				    	
 				    	
 				    	
@@ -201,6 +204,7 @@ include("include/menu.php");
 		
 		</div>	
 		</div>	
+		</div>
 		<br/>
 		
 

@@ -38,12 +38,12 @@ while($articulos2 = mysql_fetch_array($articulos)){
 	$totaluni = $totaluni + $articulos2['precio'];
 	//$pdf->Cell(1, 8, '', 0);
 	
-	$pdf->Cell(20, 8,utf8_decode($articulos2['infra']), 1);
-	$pdf->Cell(25, 8,utf8_decode($articulos2['bien']), 1);
+	$pdf->Cell(20, 8,$articulos2['infra'], 1);
+	$pdf->Cell(25, 8, $articulos2['bien'], 1);
 	$pdf->Cell(17, 8,$articulos2['correlativo'], 1);
 	$pdf->Cell(25, 8,$articulos2['marca'], 1);
 	$pdf->Cell(25, 8,$articulos2['modelo'], 1);
-	$pdf->Cell(25, 8,utf8_decode($articulos2['encargado']), 1);
+	$pdf->Cell(25, 8,$articulos2['encargado'], 1);
 	$pdf->Cell(13, 8,'$ '.$articulos2['precio'], 1);
 	$pdf->Cell(9, 8,$articulos2['proveedor'], 1);
 	$pdf->Cell(16, 8,$articulos2['fecha_compra'], 1);

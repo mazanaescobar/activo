@@ -16,14 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Temporary table structure for view `activo_fojo`
+-- Temporary table structure for view `activo_fijo`
 --
 
-DROP TABLE IF EXISTS `activo_fojo`;
-/*!50001 DROP VIEW IF EXISTS `activo_fojo`*/;
+DROP TABLE IF EXISTS `activo_fijo`;
+/*!50001 DROP VIEW IF EXISTS `activo_fijo`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `activo_fojo` (
+/*!50001 CREATE TABLE `activo_fijo` (
   `infra` tinyint NOT NULL,
   `bien` tinyint NOT NULL,
   `correlativo` tinyint NOT NULL,
@@ -31,7 +31,9 @@ SET character_set_client = utf8;
   `modelo` tinyint NOT NULL,
   `encargado` tinyint NOT NULL,
   `precio` tinyint NOT NULL,
-  `fecha_compra` tinyint NOT NULL
+  `proveedor` tinyint NOT NULL,
+  `fecha_compra` tinyint NOT NULL,
+  `estado` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -52,15 +54,19 @@ CREATE TABLE `articulos` (
   `modelo` text NOT NULL,
   `encargado` int(4) NOT NULL,
   `precio` float NOT NULL,
+  `proveedor` int(4) NOT NULL,
   `fecha_compra` date DEFAULT NULL,
+  `estado` text NOT NULL,
   PRIMARY KEY (`idarticulo`),
   KEY `infraestructura` (`infraestructura`),
   KEY `codigo_bien` (`codigo_bien`),
   KEY `encargado` (`encargado`),
+  KEY `proveedor` (`proveedor`),
   CONSTRAINT `articulos_ibfk_1` FOREIGN KEY (`infraestructura`) REFERENCES `infraestructuras` (`idinfra`),
   CONSTRAINT `articulos_ibfk_2` FOREIGN KEY (`codigo_bien`) REFERENCES `bienes` (`idbienes`),
-  CONSTRAINT `articulos_ibfk_3` FOREIGN KEY (`encargado`) REFERENCES `personas` (`idpersonas`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+  CONSTRAINT `articulos_ibfk_3` FOREIGN KEY (`encargado`) REFERENCES `personas` (`idpersonas`),
+  CONSTRAINT `articulos_ibfk_4` FOREIGN KEY (`proveedor`) REFERENCES `proveedores` (`idproveedores`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +75,7 @@ CREATE TABLE `articulos` (
 
 LOCK TABLES `articulos` WRITE;
 /*!40000 ALTER TABLE `articulos` DISABLE KEYS */;
-INSERT INTO `articulos` VALUES (12,1000,100,'0001','computadora','HP','Ommi pro 110',1,400.25,'2016-05-14'),(14,1000,100,'0002','computadora','HP','Ommi pro 110',1,400.25,'2016-05-12'),(15,1000,100,'0003','computadora','HP','Ommi pro 110',1,100000,'2016-05-04'),(18,1000,101,'0001','celular','M4','SS1600',1,100,'2016-05-18'),(19,1000,101,'0002','celular','ALCATEL ','4035A',1,100,'2016-05-10'),(20,1001,101,'0005','computadora','HP','Ommi pro 110',5,4000,'2016-05-18'),(21,1001,101,'0003','celular','M4','SS1600',5,100,'2016-05-20'),(22,1001,101,'0004','celular','SONY xpery','arc',5,200,'2016-05-10'),(23,1000,100,'0006','computadora','HP','Ommi pro 110',5,4000,'2016-05-17'),(24,1001,102,'001','tablet','sony','dm2458',6,400,'2016-05-09');
+INSERT INTO `articulos` VALUES (3,1000,100,'0001','computadora','HP','Omni pro 110',1,40000,1,'2016-06-08','bueno'),(4,1001,101,'0001','celular','M4','3035',7,100,2,'2016-06-01','bueno'),(6,1001,102,'0001','tablet','sony','ml',1,200,6,'2016-06-02','bueno');
 /*!40000 ALTER TABLE `articulos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,6 +102,41 @@ LOCK TABLES `bienes` WRITE;
 /*!40000 ALTER TABLE `bienes` DISABLE KEYS */;
 INSERT INTO `bienes` VALUES (100,'Computadoras','equipo informaticos'),(101,'celular','telefono'),(102,'Tablet','uso docentes'),(103,'Laptop','Equipo informÃ¡tico portÃ¡til '),(104,'CaÃ±on','Equipo informÃ¡tico '),(105,'Impresora','Equipo de oficina '),(106,'Televisor','Equipo audio visual');
 /*!40000 ALTER TABLE `bienes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `estado`
+--
+
+DROP TABLE IF EXISTS `estado`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `estado` (
+  `idestado` int(11) NOT NULL AUTO_INCREMENT,
+  `articulo` int(4) NOT NULL,
+  `asunto` text NOT NULL,
+  `fecha_in` date NOT NULL,
+  `horas` text,
+  `costo` float DEFAULT NULL,
+  `fecha_sal` date DEFAULT NULL,
+  `problema` text,
+  `tecnico` int(4) NOT NULL,
+  PRIMARY KEY (`idestado`),
+  KEY `articulo` (`articulo`),
+  KEY `tecnico` (`tecnico`),
+  CONSTRAINT `estado_ibfk_1` FOREIGN KEY (`articulo`) REFERENCES `articulos` (`idarticulo`),
+  CONSTRAINT `estado_ibfk_2` FOREIGN KEY (`tecnico`) REFERENCES `personas` (`idpersonas`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `estado`
+--
+
+LOCK TABLES `estado` WRITE;
+/*!40000 ALTER TABLE `estado` DISABLE KEYS */;
+INSERT INTO `estado` VALUES (9,4,'no enciende','2016-06-01','8 horas',10,'2016-06-02','cable de poder mal',7);
+/*!40000 ALTER TABLE `estado` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -196,11 +237,9 @@ CREATE TABLE `proveedores` (
   `apellido` varchar(20) NOT NULL,
   `telefono` varchar(8) NOT NULL,
   `empresa` varchar(45) NOT NULL,
-  `articulo` int(4) NOT NULL,
-  PRIMARY KEY (`idproveedores`),
-  KEY `articulo` (`articulo`),
-  CONSTRAINT `proveedores_ibfk_1` FOREIGN KEY (`articulo`) REFERENCES `articulos` (`idarticulo`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `email` text,
+  PRIMARY KEY (`idproveedores`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,7 +248,7 @@ CREATE TABLE `proveedores` (
 
 LOCK TABLES `proveedores` WRITE;
 /*!40000 ALTER TABLE `proveedores` DISABLE KEYS */;
-INSERT INTO `proveedores` VALUES (1,'pedros','martines','25252525','HP.sa',12),(2,'CARLOS','escobar','74859645','HP.sa.de.cv',15);
+INSERT INTO `proveedores` VALUES (1,'Alejandro','Perez','77777777','naranjo.sa.de.sv','aperez@gmail.com'),(2,'Pedro','Trejo','78787878','claro','trejo@claro.com'),(3,'Joel ','Galvez','79797979','tigo','galvez@tigo.com'),(4,'Wily','Palma','78797879','lanier.sa.de.sv','palma@lanier.com'),(5,'JosÃ©','Portillo','75757575','valdez.sa.de.sv','portillo@valdez.com'),(6,'NoÃ©','Salvador','74747474','Prado.sa.de.cv','salvador@gmail.com');
 /*!40000 ALTER TABLE `proveedores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,7 +295,7 @@ CREATE TABLE `reasignado` (
   CONSTRAINT `reasignado_ibfk_1` FOREIGN KEY (`antiguo`) REFERENCES `personas` (`idpersonas`),
   CONSTRAINT `reasignado_ibfk_2` FOREIGN KEY (`nuevo`) REFERENCES `personas` (`idpersonas`),
   CONSTRAINT `reasignado_ibfk_3` FOREIGN KEY (`articulo`) REFERENCES `articulos` (`idarticulo`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -265,16 +304,15 @@ CREATE TABLE `reasignado` (
 
 LOCK TABLES `reasignado` WRITE;
 /*!40000 ALTER TABLE `reasignado` DISABLE KEYS */;
-INSERT INTO `reasignado` VALUES (1,1,5,18,'cambio de puesto','2016-06-18'),(3,1,6,24,'uso en clases','2016-06-29'),(4,6,1,14,'ingreso de activo fijo','2016-06-06');
 /*!40000 ALTER TABLE `reasignado` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Final view structure for view `activo_fojo`
+-- Final view structure for view `activo_fijo`
 --
 
-/*!50001 DROP TABLE IF EXISTS `activo_fojo`*/;
-/*!50001 DROP VIEW IF EXISTS `activo_fojo`*/;
+/*!50001 DROP TABLE IF EXISTS `activo_fijo`*/;
+/*!50001 DROP VIEW IF EXISTS `activo_fijo`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -283,7 +321,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `activo_fojo` AS select `i`.`nombre` AS `infra`,`b`.`nombre` AS `bien`,`a`.`correlativo` AS `correlativo`,`a`.`marca` AS `marca`,`a`.`modelo` AS `modelo`,concat(`p`.`nombre`,' ',`p`.`apellido`) AS `encargado`,`a`.`precio` AS `precio`,`a`.`fecha_compra` AS `fecha_compra` from (((`articulos` `a` join `bienes` `b`) join `infraestructuras` `i`) join `personas` `p`) where ((`b`.`idbienes` = `a`.`codigo_bien`) and (`i`.`idinfra` = `a`.`infraestructura`) and (`p`.`idpersonas` = `a`.`encargado`)) order by `a`.`codigo_bien`,`a`.`correlativo` */;
+/*!50001 VIEW `activo_fijo` AS select `i`.`nombre` AS `infra`,`b`.`nombre` AS `bien`,`a`.`correlativo` AS `correlativo`,`a`.`marca` AS `marca`,`a`.`modelo` AS `modelo`,concat(`p`.`nombre`,' ',`p`.`apellido`) AS `encargado`,`a`.`precio` AS `precio`,`a`.`proveedor` AS `proveedor`,`a`.`fecha_compra` AS `fecha_compra`,`a`.`estado` AS `estado` from (((`articulos` `a` join `bienes` `b`) join `infraestructuras` `i`) join `personas` `p`) where ((`b`.`idbienes` = `a`.`codigo_bien`) and (`i`.`idinfra` = `a`.`infraestructura`) and (`p`.`idpersonas` = `a`.`encargado`)) order by `a`.`codigo_bien`,`a`.`correlativo` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -316,4 +354,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-05 15:15:50
+-- Dump completed on 2016-06-09 23:59:43
